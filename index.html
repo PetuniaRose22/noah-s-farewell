@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noah's Gone Fishin' Send-Off</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lake:#123A3E;
+    --lake-mid:#1F5B60;
+    --teal:#2E8C93;
+    --lure:#E8823C;
+    --lure-dark:#C2611F;
+    --cream:#F7F1DE;
+    --ink:#16211E;
+    --silver:#CFE2DD;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito',sans-serif;
+  }
+  .page{max-width:720px;margin:0 auto;background:var(--cream);overflow:hidden;}
+
+  /* SCALE TEXTURE (shared) */
+  .scales{
+    background-image: radial-gradient(circle at 50% 100%, transparent 60%, rgba(255,255,255,0.05) 61%);
+    background-size: 26px 26px;
+  }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    background:linear-gradient(180deg,var(--lake-mid) 0%, var(--lake) 100%);
+    color:var(--cream);
+    padding:50px 24px 46px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .bubble{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.10);
+    animation:rise 8s linear infinite;
+  }
+  @keyframes rise{
+    0%{transform:translateY(0); opacity:0;}
+    10%{opacity:1;}
+    100%{transform:translateY(-260px); opacity:0;}
+  }
+  .kicker{
+    font-family:'Fredoka',sans-serif;
+    font-size:14px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--lure);
+    margin-bottom:10px;
+    position:relative;z-index:2;
+  }
+  h1{
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+    font-size:clamp(36px,8vw,58px);
+    line-height:1.02;
+    margin:0 0 12px;
+    position:relative;z-index:2;
+  }
+  h1 span{color:var(--lure);}
+  .hero-sub{
+    font-size:15.5px;
+    max-width:420px;
+    margin:0 auto;
+    color:#d7ece8;
+    line-height:1.55;
+    position:relative;z-index:2;
+  }
+  .fish-hero{
+    position:relative;
+    z-index:2;
+    width:220px;
+    margin:22px auto -10px;
+    animation:swim 5s ease-in-out infinite;
+  }
+  @keyframes swim{
+    0%,100%{transform:translateX(0) rotate(0deg);}
+    50%{transform:translateX(10px) rotate(2deg);}
+  }
+  .waterline{display:block;width:100%;margin-top:6px;}
+
+  /* SECTION SHELL */
+  section{padding:38px 24px;position:relative;}
+  .hook-divider{
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:6px;
+  }
+  .hook-divider svg{flex:0 0 auto;}
+  .section-title{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--lake);
+    margin:0;
+  }
+  .section-note{font-size:13.5px;color:#5c6e68;margin:4px 0 20px;}
+
+  /* DETAILS */
+  .details-panel{
+    background:var(--lake);
+    color:var(--cream);
+    border-radius:14px;
+    padding:22px;
+  }
+  .details-panel .section-title{color:var(--cream);}
+  .details-panel .hook-divider svg path,
+  .details-panel .hook-divider svg circle{stroke:var(--lure);}
+  .details-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+  .detail-pill{
+    background:rgba(255,255,255,0.1);
+    border-radius:20px;
+    padding:8px 16px;
+    font-weight:700;
+    font-size:14px;
+  }
+  .details-addr{font-size:15px;line-height:1.5;margin-bottom:10px;}
+  .details-addr strong{font-family:'Fredoka',sans-serif;font-size:17px;}
+  .map-link{color:var(--lure);text-decoration:none;font-weight:700;font-size:13.5px;border-bottom:1px solid var(--lure);}
+
+  /* ACTIVITIES — TACKLE BOX */
+  .tackle-row{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    padding:14px 0;
+    border-bottom:1px dashed #d8cfa9;
+  }
+  .tackle-row:last-child{border-bottom:none;}
+  .tackle-icon{
+    flex:0 0 auto;
+    width:46px;height:46px;
+    background:var(--silver);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .tackle-text strong{
+    display:block;
+    font-family:'Fredoka',sans-serif;
+    font-size:16.5px;
+    color:var(--lake);
+  }
+  .tackle-text span{font-size:13.5px;color:#5c6e68;}
+
+  /* PACKING - BOBBER CHECKLIST */
+  .bobber-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .bobber-item{
+    display:flex;align-items:center;gap:10px;
+    background:#fff;
+    border:2px solid #e3dab5;
+    border-radius:10px;
+    padding:11px 12px;
+    cursor:pointer;
+    font-size:13.5px;
+    font-weight:600;
+    user-select:none;
+    transition:background .15s, border-color .15s;
+  }
+  .bobber-item.checked{background:#fdeee0;border-color:var(--lure);}
+  .bobber-item.checked span.label{text-decoration:line-through;color:#a68f6e;}
+  .bobber{
+    width:20px;height:20px;
+    flex:0 0 auto;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff 0%, var(--lure) 40%, var(--lure-dark) 100%);
+    border:2px solid var(--lure-dark);
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .bobber svg{width:11px;height:11px;opacity:0;}
+  .bobber-item.checked .bobber svg{opacity:1;}
+  @media (max-width:480px){.bobber-grid{grid-template-columns:1fr;}}
+  .bobber-tally{
+    text-align:right;
+    font-family:'Fredoka',sans-serif;
+    font-size:14px;
+    color:var(--lure-dark);
+    margin-top:12px;
+  }
+
+  /* RSVP — HOOK & CATCH */
+  .rsvp-panel{
+    background:var(--lure);
+    color:var(--ink);
+    border-radius:14px;
+    padding:24px;
+    text-align:center;
+  }
+  .rsvp-panel .section-title{color:var(--ink);}
+  .rsvp-panel .section-note{color:#5a3616;}
+  .catch-counter{
+    display:flex;align-items:center;justify-content:center;gap:20px;
+    margin:14px 0 4px;
+  }
+  .catch-btn{
+    width:42px;height:42px;
+    border:2px solid var(--ink);
+    background:var(--cream);
+    color:var(--ink);
+    font-size:22px;
+    border-radius:50%;
+    cursor:pointer;
+  }
+  .catch-num{
+    font-family:'Fredoka',sans-serif;
+    font-size:46px;
+    font-weight:700;
+    color:var(--ink);
+    min-width:64px;
+  }
+  .catch-caption{
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:18px;
+  }
+  .rsvp-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    text-decoration:none;font-weight:700;font-size:13.5px;
+    padding:12px 18px;border-radius:24px;
+  }
+  .btn-fill{background:var(--lake);color:var(--cream);}
+  .btn-outline{background:transparent;color:var(--ink);border:2px solid var(--ink);}
+  .rsvp-fine{font-size:12.5px;color:#5a3616;}
+  .countdown-note{
+    margin-top:10px;
+    font-family:'Fredoka',sans-serif;
+    font-size:14.5px;
+    color:var(--lake);
+  }
+
+  /* WISHLIST */
+  .wishlist-panel{
+    background:#fff;
+    border:2px dashed var(--teal);
+    border-radius:12px;
+    padding:18px 20px;
+  }
+  .wishlist-panel p{margin:0 0 12px;font-size:14px;line-height:1.55;color:#3d4a45;}
+  .wishlist-panel a{
+    color:var(--lake-mid);
+    font-weight:700;
+    text-decoration:none;
+    border-bottom:2px solid var(--teal);
+    font-size:13.5px;
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 24px 44px;
+    font-family:'Fredoka',sans-serif;
+    font-size:17px;
+    color:var(--lake);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <span class="bubble" style="width:10px;height:10px;left:18%;bottom:10px;animation-delay:0s;"></span>
+    <span class="bubble" style="width:6px;height:6px;left:32%;bottom:0;animation-delay:1.5s;"></span>
+    <span class="bubble" style="width:14px;height:14px;left:60%;bottom:20px;animation-delay:3s;"></span>
+    <span class="bubble" style="width:8px;height:8px;left:75%;bottom:0;animation-delay:2s;"></span>
+    <span class="bubble" style="width:5px;height:5px;left:48%;bottom:5px;animation-delay:4.5s;"></span>
+
+    <div class="kicker">Gone Fishin' — a Farewell</div>
+    <h1>Noah's Send-Off<br>Before <span>Warriors</span> Territory</h1>
+    <p class="hero-sub">One last cast, one last splash, one last goodbye before Noah heads off to Wisconsin.</p>
+
+    <svg class="fish-hero" viewBox="0 0 220 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 50 Q60 10 130 50 Q60 90 20 50 Z" fill="#E8823C"/>
+      <path d="M8 50 L28 38 L28 62 Z" fill="#C2611F"/>
+      <path d="M100 22 Q112 8 128 18 Q118 28 100 22 Z" fill="#C2611F" opacity="0.9"/>
+      <circle cx="105" cy="46" r="5" fill="#16211E"/>
+      <circle cx="106.5" cy="44.5" r="1.6" fill="#F7F1DE"/>
+      <path d="M55 42 Q65 50 55 58" stroke="#C2611F" stroke-width="2.5" fill="none" opacity="0.6"/>
+      <path d="M80 40 Q90 50 80 60" stroke="#C2611F" stroke-width="2.5" fill="none" opacity="0.6"/>
+    </svg>
+
+    <svg class="waterline" viewBox="0 0 720 34" preserveAspectRatio="none" style="height:34px;">
+      <path d="M0,18 Q90,4 180,18 T360,18 T540,18 T720,18" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+      <path d="M0,26 Q90,14 180,26 T360,26 T540,26 T720,26" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <section>
+    <div class="details-panel">
+      <div class="hook-divider">
+        <svg width="22" height="22" viewBox="0 0 22 22"><path d="M11 2v9a5 5 0 1 0 5 5" fill="none" stroke="#E8823C" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="2" r="1.6" fill="#E8823C"/></svg>
+        <h2 class="section-title">The Details</h2>
+      </div>
+      <p class="section-note" style="color:#bcd7d2;">Mark your calendar and grab your gear.</p>
+      <div class="details-row">
+        <span class="detail-pill">Sat, Aug 1</span>
+        <span class="detail-pill">1 – 4 PM</span>
+      </div>
+      <div class="details-addr"><strong>The Bayou Shack</strong><br>313 Riverside Drive, Angleton, TX 77515</div>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=313+Riverside+Drive+Angleton+TX+77515" target="_blank" rel="noopener">Get directions →</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="hook-divider">
+      <svg width="22" height="22" viewBox="0 0 22 22"><path d="M11 2v9a5 5 0 1 0 5 5" fill="none" stroke="#2E8C93" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="2" r="1.6" fill="#2E8C93"/></svg>
+      <h2 class="section-title">On the Water</h2>
+    </div>
+    <p class="section-note">Everything on the day's tackle list:</p>
+
+    <div class="tackle-row">
+      <div class="tackle-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 20L18 6" stroke="#123A3E" stroke-width="2" stroke-linecap="round"/><circle cx="8" cy="16" r="2.2" fill="#E8823C"/></svg>
+      </div>
+      <div class="tackle-text"><strong>Fishing</strong><span>Bring your own rod, reel, and bait — biggest catch wins bragging rights.</span></div>
+    </div>
+    <div class="tackle-row">
+      <div class="tackle-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="14" rx="9" ry="3.4" stroke="#123A3E" stroke-width="2"/><path d="M6 8l12 12" stroke="#123A3E" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="tackle-text"><strong>Kayaking</strong><span>Paddle the shack's stretch of river before the sun climbs high.</span></div>
+    </div>
+    <div class="tackle-row">
+      <div class="tackle-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M2 12q2.5-4 5 0t5 0t5 0t5 0" stroke="#123A3E" stroke-width="2" fill="none"/></svg>
+      </div>
+      <div class="tackle-text"><strong>Water Games</strong><span>Splash battles — loser buys the first round of s'mores.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="hook-divider">
+      <svg width="22" height="22" viewBox="0 0 22 22"><path d="M11 2v9a5 5 0 1 0 5 5" fill="none" stroke="#E8823C" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="2" r="1.6" fill="#E8823C"/></svg>
+      <h2 class="section-title">What to Bring</h2>
+    </div>
+    <p class="section-note">Tap a bobber to mark it packed:</p>
+    <div class="bobber-grid" id="bobberList">
+      <div class="bobber-item"><span class="bobber"><svg viewBox="0 0 24 24" fill="none" stroke="#16211E" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">Rod, reel &amp; bait</span></div>
+      <div class="bobber-item"><span class="bobber"><svg viewBox="0 0 24 24" fill="none" stroke="#16211E" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">Swimsuit</span></div>
+      <div class="bobber-item"><span class="bobber"><svg viewBox="0 0 24 24" fill="none" stroke="#16211E" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">Sunblock</span></div>
+      <div class="bobber-item"><span class="bobber"><svg viewBox="0 0 24 24" fill="none" stroke="#16211E" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">Water shoes</span></div>
+      <div class="bobber-item"><span class="bobber"><svg viewBox="0 0 24 24" fill="none" stroke="#16211E" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">Towel</span></div>
+      <div class="bobber-item"><span class="bobber"><svg viewBox="0 0 24 24" fill="none" stroke="#16211E" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">Lawn chair</span></div>
+    </div>
+    <div class="bobber-tally" id="bobberTally">0 of 6 packed</div>
+  </section>
+
+  <section>
+    <div class="rsvp-panel">
+      <div class="hook-divider" style="justify-content:center;">
+        <h2 class="section-title">RSVP by Thu, July 30</h2>
+      </div>
+      <p class="section-note">How many are you reeling in?</p>
+      <div class="catch-counter">
+        <button class="catch-btn" id="minus">−</button>
+        <div class="catch-num" id="catchNum">1</div>
+        <button class="catch-btn" id="plus">+</button>
+      </div>
+      <div class="catch-caption" id="catchCaption">1 guest, total</div>
+      <div class="rsvp-btns">
+        <a class="btn btn-fill" id="textBtn" href="sms:+13462537036">Text to RSVP</a>
+        <a class="btn btn-outline" href="tel:+13462537036">Call (346) 253-7036</a>
+      </div>
+      <p class="rsvp-fine">Texting pre-fills your guest count — or call and just tell Noah the number.</p>
+      <div class="countdown-note" id="countdown">counting down the days…</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="hook-divider">
+      <svg width="22" height="22" viewBox="0 0 22 22"><path d="M11 2v9a5 5 0 1 0 5 5" fill="none" stroke="#2E8C93" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="2" r="1.6" fill="#2E8C93"/></svg>
+      <h2 class="section-title">Dorm Wishlist</h2>
+    </div>
+    <div class="wishlist-panel">
+      <p>Noah's stocking up before he heads to Wisconsin. If you'd like to send him off with something for the new room, here's what he's after.</p>
+      <a href="https://www.amazon.com/hz/wishlist/ls/1BSC2Q1TI1YLJ" target="_blank" rel="noopener">View the wishlist →</a>
+    </div>
+  </section>
+
+  <footer>Tight lines and safe travels, Noah 🎣</footer>
+</div>
+
+<script>
+  // Packing checklist
+  const bobbers = document.querySelectorAll('.bobber-item');
+  const bobberTally = document.getElementById('bobberTally');
+  function updateBobberTally(){
+    const checked = document.querySelectorAll('.bobber-item.checked').length;
+    bobberTally.textContent = checked + ' of ' + bobbers.length + ' packed';
+  }
+  bobbers.forEach(item=>{
+    item.addEventListener('click', ()=>{
+      item.classList.toggle('checked');
+      updateBobberTally();
+    });
+  });
+  updateBobberTally();
+
+  // Guest counter
+  let guests = 1;
+  const catchNum = document.getElementById('catchNum');
+  const catchCaption = document.getElementById('catchCaption');
+  const textBtn = document.getElementById('textBtn');
+  function updateGuests(){
+    catchNum.textContent = guests;
+    catchCaption.textContent = guests + (guests === 1 ? ' guest, total' : ' guests, total');
+    const msg = "Hi! RSVPing for Noah's send-off on Aug 1 - bringing " + guests + (guests === 1 ? ' guest' : ' guests') + " total.";
+    textBtn.setAttribute('href', 'sms:+13462537036?body=' + encodeURIComponent(msg));
+  }
+  document.getElementById('plus').addEventListener('click', ()=>{ guests = Math.min(guests+1, 20); updateGuests(); });
+  document.getElementById('minus').addEventListener('click', ()=>{ guests = Math.max(guests-1, 1); updateGuests(); });
+  updateGuests();
+
+  // Countdown
+  const deadline = new Date('2026-07-30T23:59:59');
+  function tick(){
+    const now = new Date();
+    const diff = deadline - now;
+    const el = document.getElementById('countdown');
+    if(diff <= 0){ el.textContent = 'the RSVP deadline has passed'; return; }
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    el.textContent = d + ' days, ' + h + ' hours until RSVP deadline';
+  }
+  tick();
+  setInterval(tick, 60000);
+</script>
+</body>
+</html>
